@@ -1,0 +1,4 @@
+Dependent Class,impl.DataCentre,impl.RRVmAllocation,DataCentre.VmAllocationPolicyMinimum,impl.RRDataCenterBroker,impl.HostList,impl.Hosts
+impl.DataCentre,0.0,3.0,0.0,2.0,0.0,0.0
+impl.RRVmAllocation,0.0,0.0,0.0,0.0,4.0,0.0
+DataCentre.VmAllocationPolicyMinimum,0.0,0.0,0.0,0.0,0.0,5.0
