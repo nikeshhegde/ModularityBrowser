@@ -24,7 +24,7 @@ project_path='D:\\code'
 
 
 #github Authentication using token
-headers = {'Authorization':'token 6c03934cde39dde8d6050584ca9e9011d8b42c85',
+headers = {'Authorization':'token 46fcd8939e5653b99b868a31f428187bafa35cf7',
         'User-Agent':'https://api.github.com/meta',
         'Content-Type':'application/json'}
 #get the fulll project name of the
@@ -176,7 +176,7 @@ def code_versions(repo_url,sha,projectname):
 
         create_udb(r''+udb_path, language, project_root)
         path=r''+udb_path+'.udb'
-        print('udb path is' + path)
+        print('udb path is ' + path)
 
 
         try:
@@ -188,11 +188,12 @@ def code_versions(repo_url,sha,projectname):
 
         print('before executing.....')
         # get the type of dependencies required
-        type = 'CLASS'
+        type = 'FILE'
         #Executing Understand analysis
         execute(db,projectname,repo_dir,path,type)
-
         db.close()
+    #call generate matrix function after checking out the versions
+    generate_matrix(len(sha),type)
 
 # stores the vertices in the graph
 vertices = []
@@ -204,7 +205,7 @@ def add_vertex(v):
   global vertices_no
   global vertices
   if v in vertices:
-    print("Vertex ", v, " already exists")
+      print("Vertex ", v, " already exists")
   else:
     vertices_no = vertices_no + 1
     vertices.append(v)
@@ -236,8 +237,11 @@ def add_edge(v1, v2, e):
         graph[index1][index2] = e
 
 
-def get_differences(sha):
-
+def generate_matrix(sha,type):
+    if type.upper()=='FILE':
+        filetype='file'
+    elif type.upper()=='CLASS':
+        filetype='class'
     #total_dir = len(sha)
     for i in range(sha):
         #print(i)
@@ -246,7 +250,7 @@ def get_differences(sha):
             file_path = file_path+str(i)
             #print(file_path)
             #file_path2 = file_path+str(i+1)
-            file1 = file_path+'\\class.csv'
+            file1 = file_path+'\\'+filetype+'.csv'
             #file2 = file_path2+'\\class.csv'
             #print(file1)
             #print(file2)
@@ -270,7 +274,7 @@ def get_differences(sha):
                 # sort the graph
                 #vertices.sort()
                 #print(vertices)
-                #print(graph)
+                print(graph)
                 for row in data:
                     values = list(row)
                     #print(values)
@@ -303,10 +307,10 @@ def get_differences(sha):
                     #os.makedirs(results_dir)
                 #pdf.savefig(fig)
                 #print(file_path)
-                plt.savefig(file_path +'/imageclass.png')
+                plt.savefig(file_path +'/'+filetype+'.png')
                 #plt.show()
                 #plt.matshow(graph,0)
                 #plt.show()
 if __name__ == '__main__':
-    #start()
-    get_differences(8)
+    start()
+    #get_differences(8)

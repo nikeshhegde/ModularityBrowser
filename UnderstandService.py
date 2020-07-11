@@ -22,17 +22,6 @@ def create_udb(udb_path, language, project_root):
 		logging.fatal("udb creation failed")
 		raise exception
 """
-Returns a list of all filenames of given type
-"""
-def get_filenames(db, type):
-    filenames = set()
-    size = len(type)
-    for entity in db.ents():
-        if entity.longname()[(-1*size):]==type:
-            #and pkg_structure in entity.longname()
-            filenames.add(entity.name())
-    return filenames
-"""
 This function creates dependencies
 """
 def execute(db,name,path,udb_path,type):
