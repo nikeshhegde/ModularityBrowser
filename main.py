@@ -21,10 +21,10 @@ import matplotlib.pyplot as plt
 #repo_name='nikeshhegde/RoundRobinDataCentre'
 #proj_name = 'nikeshhegde/RoundRobinDataCentre'
 project_path='D:\\code'
-
+global proj_name
 
 #github Authentication using token
-headers = {'Authorization':'token 46fcd8939e5653b99b868a31f428187bafa35cf7',
+headers = {'Authorization':'token 1296c7533daf2567a00b2acc8eceb104502881d5',
         'User-Agent':'https://api.github.com/meta',
         'Content-Type':'application/json'}
 #get the fulll project name of the
@@ -69,12 +69,12 @@ def get_repo_sha(pull_req)    : # Get the repo SHA1 to clone the repo
 def clone_repo(repo_url,name,num):
     try:
         git_url=repo_url
-        print('git_url is' ,git_url)
+        #print('git_url is' ,git_url)
         repo_dir=project_path +'\\'+ name+'\\'+str(num)
         if os.path.isdir(repo_dir):
             os.system('rmdir /S /Q "{}"'.format(repo_dir))
 
-        print('Cloning at:',repo_dir)
+        #print('Cloning at:',repo_dir)
         Repo.clone_from(git_url, repo_dir)
         #print('Done cloning')
     except:
@@ -100,7 +100,7 @@ def git_checkout(sha,projectname,num):
         try:
             process = subprocess.Popen(cmd,cwd=path,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
             result = process.communicate()[1].decode().split(':')[0]
-            print(result)
+            #print(result)
             if(result=="FATAL" or result=="fatal"):
                 flag=False
             return flag
@@ -113,19 +113,19 @@ def start():
         since_datetime = '2019-08-16T22:16:53Z'
         until_datetime = '2020-04-20T22:16:53Z'
         #request = 'https://api.github.com/repos/'+repo_name+'/commits?since='+since_datetime+'&until='+until_datetime
-
-        proj_name = 'nikeshhegde/RoundRobinDataCentre'
+        #print('proj_name is '+proj_name)
+        #proj_name = 'frandorado/spring-projects'
         #search = 'https://api.github.com/search/repositories?q=repo:yankils/Simple-DevOps-Project'
         search_req = requests.get('https://api.github.com/search/repositories?q=repo:'+proj_name,headers=headers)
         #print(search_req.json())
         projectname=proj_name.split("/")[1]
-        print('Project name:',projectname)
+        #print('Project name:',projectname)
 
         # get the repository URL
         repo_url=get_repo_url(search_req)
 
         #call github service
-        test_github_service(repo_url)
+        github_service(repo_url)
 
 
     except understand.UnderstandError as e:
@@ -133,13 +133,13 @@ def start():
         return 0
         return np
 
-def test_github_service(repo_url):
-    print("inside test_github_service")
-    repo_name='nikeshhegde/RoundRobinDataCentre'
+def github_service(repo_url):
+    #print("inside github_service")
+    #proj_name='nikeshhegde/RoundRobinDataCentre'
     since_datetime = '2019-11-29T22:16:53Z'
     until_datetime = '2020-04-20T22:16:53Z'
-    request = 'https://api.github.com/repos/'+repo_name+'/commits?since='+since_datetime+'&until='+until_datetime
-    print(request)
+    request = 'https://api.github.com/repos/'+proj_name+'/commits?since='+since_datetime+'&until='+until_datetime
+    #print(request)
     commit_date = []
     git_URL = []
     sha = []
@@ -153,8 +153,8 @@ def test_github_service(repo_url):
             sha.append(data['sha'])
     print(len(sha))
     #print(git_URL[0].rpartition('/commits'))
-    projectname=repo_name.split("/")[1]
-    print('Project name:',projectname)
+    projectname=proj_name.split("/")[1]
+    #print('Project name:',projectname)
     code_versions(repo_url,sha,projectname)
 
 # function to checkout versions of the code by particular sha
@@ -162,21 +162,21 @@ def code_versions(repo_url,sha,projectname):
     for i in range(len(sha)):
         #Clone the repository
         repo_dir=clone_repo(repo_url,projectname,i)
-        print("repo_dir " +repo_dir)
+        #print("repo_dir " +repo_dir)
 
         #Clone the repository
         flag = git_checkout(sha[i],projectname,i)
-        print(flag)
+        #print(flag)
 
         udb_path=repo_dir
         project_root=repo_dir
         language='java'
         udb_path= udb_path+'\\'+projectname
-        print('path is ' + r''+udb_path)
+        #print('path is ' + r''+udb_path)
 
         create_udb(r''+udb_path, language, project_root)
         path=r''+udb_path+'.udb'
-        print('udb path is ' + path)
+        #print('udb path is ' + path)
 
 
         try:
@@ -186,19 +186,20 @@ def code_versions(repo_url,sha,projectname):
             logging.fatal('udb open failed')
             raise Exception
 
-        print('before executing.....')
+        #print('before executing.....')
         # get the type of dependencies required
         type = 'FILE'
         #Executing Understand analysis
         execute(db,projectname,repo_dir,path,type)
         db.close()
     #call generate matrix function after checking out the versions
-    generate_matrix(len(sha),type)
+    generate_matrix(len(sha),type,projectname)
 
 # stores the vertices in the graph
 vertices = []
 graph = []
 vertices_no = 0
+y_axis_vertices = []
 # Add a vertex to the set of vertices and the graph
 def add_vertex(v):
   global graph
@@ -237,7 +238,7 @@ def add_edge(v1, v2, e):
         graph[index1][index2] = e
 
 
-def generate_matrix(sha,type):
+def generate_matrix(sha,type,projectname):
     if type.upper()=='FILE':
         filetype='file'
     elif type.upper()=='CLASS':
@@ -246,7 +247,7 @@ def generate_matrix(sha,type):
     for i in range(sha):
         #print(i)
         if i < sha:
-            file_path = 'D:\\code\\RoundRobinDataCentre\\'
+            file_path = 'D:\\code\\'+projectname+'\\'
             file_path = file_path+str(i)
             #print(file_path)
             #file_path2 = file_path+str(i+1)
@@ -260,11 +261,15 @@ def generate_matrix(sha,type):
             #file_path = 'D:\\code\\RoundRobinDataCentre\\0\\class.csv'
             #file_path1 = 'D:\\code\\RoundRobinDataCentre\\1\\class.csv'
             with open(file1,'rt') as f:
+                vertices.clear()
+                graph.clear()
+                y_axis_vertices.clear()
                 #fileObject = csv.reader(f)
                 #row_count = sum(1 for row in fileObject)
                 #print(row_count)
                 data = csv.reader(f)
                 headers = list(next(data))  # gets the first line
+                #print(headers)
                 for i in range(len(headers)):
                     if i > 0:
                         #vertices.append(headers[i])
@@ -273,8 +278,10 @@ def generate_matrix(sha,type):
                 #print(vertices_no)
                 # sort the graph
                 #vertices.sort()
+                #print("here ")
                 #print(vertices)
-                print(graph)
+
+
                 for row in data:
                     values = list(row)
                     #print(values)
@@ -284,23 +291,30 @@ def generate_matrix(sha,type):
                         else:
                             #print(i)
                             add_edge(vertex_name,vertices[i-1],float(values[i]))
-                #print(graph)
+                            #print(graph)
+
+                len_vertices = len(vertices)
+                for i in range(len(vertices)):
+                    vertices[i] = vertices[i]+'_'+str(i)
+                    #print(vertices[i])
+                    y_axis_vertices.append(i)
+                #print(y_axis_vertices)
                 # Display matrix
                 fig, ax = plt.subplots()
-                im = ax.imshow(graph)
-                ax.set_xticks(np.arange(len(vertices)))
-                ax.set_yticks(np.arange(len(vertices)))
-                ax.set_xticklabels(vertices)
+                im = ax.imshow(graph,cmap=plt.get_cmap('gray_r'))
+                ax.set_xticks(np.arange(len_vertices))
+                ax.set_yticks(np.arange(len(y_axis_vertices)))
+                ax.set_xticklabels(y_axis_vertices)
                 ax.set_yticklabels(vertices)
                 ax.xaxis.tick_top()
                 # Loop over data dimensions and create text annotations.
                 for i in range(len(vertices)):
                     for j in range(len(vertices)):
                         text = ax.text(j, i, graph[i][j],
-                                       ha="center", va="center", color="w")
+                                       ha="center", va="center",color="w")
                 # Rotate the tick labels and set their alignment.
-                plt.setp(ax.get_xticklabels(), rotation=45, ha="left",
-                         rotation_mode="anchor")
+                #plt.setp(ax.get_xticklabels(), rotation=45, ha="left",
+                    #     rotation_mode="anchor")
                 fig.tight_layout()
                 #file_path = 'D:\\code\\RoundRobinDataCentre\\0\\'
                 #if not os.path.isdir(results_dir):
@@ -308,9 +322,10 @@ def generate_matrix(sha,type):
                 #pdf.savefig(fig)
                 #print(file_path)
                 plt.savefig(file_path +'/'+filetype+'.png')
-                #plt.show()
+                plt.show()
                 #plt.matshow(graph,0)
                 #plt.show()
 if __name__ == '__main__':
+    proj_name = 'nikeshhegde/RoundRobinDataCentre'
     start()
     #get_differences(8)
