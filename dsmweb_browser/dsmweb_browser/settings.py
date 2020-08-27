@@ -121,5 +121,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    'D://Pyhton//ModularityBrowser//dsmweb_browser//modularity//static//',
+    'D://Pyhton/ModularityBrowser/dsmweb_browser/modularity/static/',
+    'D://Pyhton/ModularityBrowser/dsmweb_browser/modularity/static/modularity/images',
 ]

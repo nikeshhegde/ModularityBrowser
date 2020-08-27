@@ -28,6 +28,10 @@
   <!-- Core JavaScript Files -->
   <script src="{% static "modularity/js/bootstrap.min.js"%}"></script>
 
+  <link rel="stylesheet" href="{% static "modularity/css/normalize.css"%}">
+  <link rel="stylesheet" href="{% static "modularity/css/ideal-image-slider.css"%}">
+  <link rel="stylesheet" href="{% static "modularity/css/default.css"%}">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -36,22 +40,22 @@
   <![endif]-->
 </head>
 
-<div class="featured container">
+
   <body>
     <header>
       <nav id="top">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <strong>Searh GitHub Project</strong>
+              <h4>Request DSM for the Project</h4>
             </div>
           </div>
         </div>
       </nav>
     </header>
+<div class="featured container">
     <div class="row">
       <div class="col-sm-8">
-        <!-- Input Form -->
         <form action="/send-query/" method="post">
             {% csrf_token %}
             <table>
@@ -59,20 +63,7 @@
           </table>
         <button type="submit" class="btn btn-default">Submit</button>
         </form>
-        <!-- Input Form -->
       </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-          <h3>Column 1</h3>
-          <p>English...</p>
-          <p>English...</p>
-        </div>
-        <div class="col-sm-6">
-          <h3>Column 2</h3>
-          <p>English...</p>
-          <p>English...</p>
-        </div>
     </div>
 </div>
 
@@ -84,58 +75,5 @@
   <!-- Footer -->
 
   <!-- JS -->
-  <script src="{% static "modularity/owl-carousel/owl.carousel.js"%}"></script>
-  <script>
-  $(document).ready(function() {
-    $("#owl-demo-1").owlCarousel({
-      autoPlay: 3000,
-      items : 1,
-      itemsDesktop : [1199,1],
-      itemsDesktopSmall : [400,1]
-    });
-    $("#owl-demo-2").owlCarousel({
-      autoPlay: 3000,
-      items : 3,
-
-    });
-  });
-  </script>
-
-
-  <script type="text/javascript" src="{% static "modularity/js/bootstrap-datetimepicker.js"%}" charset="UTF-8"></script>
-  <script type="text/javascript" src="{% static "modularity/js/locales/bootstrap-datetimepicker.fr.js"%}" charset="UTF-8"></script>
-  <script type="text/javascript">
-  $('.form_datetime').datetimepicker({
-    //language:  'fr',
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    forceParse: 0,
-    showMeridian: 1
-  });
-  $('.form_date').datetimepicker({
-    language:  'fr',
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0
-  });
-  $('.form_time').datetimepicker({
-    language:  'fr',
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 1,
-    minView: 0,
-    maxView: 1,
-    forceParse: 0
-  });
-</script>
 </body>
 </html>

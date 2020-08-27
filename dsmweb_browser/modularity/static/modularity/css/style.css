@@ -5,7 +5,7 @@
 /* ---------------------------------------------------------------------------- */
 /* ------------------------------------Html-Body------------------------------- */
 /* ---------------------------------------------------------------------------- */
-body {font-family: 'Ek Mukta', sans-serif;color: #666;background: url(../images/bg2.jpg) fixed ;font-size: 15px;line-height: 1.6em;font-weight: 400;}
+body {font-family: 'Ek Mukta', sans-serif;color: #666;background: url(../bg-images/bg2.jpg) fixed ;font-size: 15px;line-height: 1.6em;font-weight: 400;}
 html, body {width:100%; padding:0; margin:0;}
 
 ::-moz-selection{background:#000;color:#fff;text-shadow:none}
@@ -108,10 +108,10 @@ body.sub-page .logo {margin: 110px 0 80px;background: url(../images/bg.jpg) fixe
 @media  (min-width: 768px) {
     #menu.navbar{padding: 0;height: auto;margin-top: 20px;}
 	#menu .dropdown:hover .dropdown-menu {display: block;}
-	
+
 }
 @media(max-width:767px) {
-	
+
 	#menu .navbar-brand {display: block;color: #fff;}
 	#menu div.dropdown-inner > ul.list-unstyled {display: block;}
 	#menu .dropdown-inner a {width: 100%;color: #fff;}
@@ -130,9 +130,9 @@ header{}
 .carousel-control {width: 0;}
 .carousel-control.left,
 .carousel-control.right {opacity: 1;filter: alpha(opacity=100);background-image: none;background-repeat: no-repeat;text-shadow: none;}
-.carousel-control .glyphicon-chevron-left, 
-.carousel-control .glyphicon-chevron-right, 
-.carousel-control .icon-prev, 
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right,
+.carousel-control .icon-prev,
 .carousel-control .icon-next {position: absolute;top: 45%;z-index: 5;display: inline-block;}
 .carousel-control .glyphicon-chevron-left,
 .carousel-control .icon-prev {left: 30px;}
@@ -297,7 +297,7 @@ footer .col-footer{}
 footer .footer-1{}
 footer .footer-1 img{max-width: 140px;margin-bottom: 10px;}
 footer .footer-1 p{border-bottom: 1px solid #444;margin-bottom: 10px;padding-bottom: 7px;}
-footer .footer-1 input[type="text"]{ 
+footer .footer-1 input[type="text"]{
 	border: 2px solid #E7E7E7;
 	outline: medium none;
     color: #999999;
@@ -378,7 +378,7 @@ footer .footer-3 ul li a:hover{color: #666;}
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	
+
 }
 .zoom-container a {
     display: block;
@@ -393,7 +393,7 @@ footer .footer-3 ul li a:hover{color: #666;}
 }
 .zoom-container:hover a {
     opacity: 1;
-    top: 0; 
+    top: 0;
     z-index: 500;
 }
 .zoom-container:hover a i {
@@ -412,7 +412,7 @@ footer .footer-3 ul li a:hover{color: #666;}
     -ms-transition: all .5s ease; /* IE 9 */
     -o-transition: all .5s ease; /* Opera */
     transition: all .5s ease;
-	
+
 }
 .zoom-container .zoom-caption i.icon-play {
 	font-size: 22px;

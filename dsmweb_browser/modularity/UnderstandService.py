@@ -10,22 +10,21 @@ import imgkit
 Create a understand database from the source code
 """
 def create_udb(udb_path, language, project_root):
-	try:
-		output = subprocess.check_output("und create -db {udb_path} -languages {lang}".format(udb_path=udb_path, lang=language),shell=True)
-		logging.info(output)
-		output = subprocess.check_output("und add -db {udb_path} {project}".format(udb_path=udb_path, project=project_root), shell=True)
-		logging.info(output)
-		output = subprocess.check_output("und analyze {udb_path}".format(udb_path=udb_path), shell=True)
-		logging.info(output)
-	except subprocess.CalledProcessError as e:
-		logging.exception(e.output)
-		logging.fatal("udb creation failed")
-		raise exception
+    try:
+        output = subprocess.check_output("und create -db {udb_path} -languages {lang}".format(udb_path=udb_path, lang=language),shell=True)
+        #logging.info(output)
+        output = subprocess.check_output("und add -db {udb_path} {project}".format(udb_path=udb_path, project=project_root), shell=True)
+        #logging.info(output)
+        output = subprocess.check_output("und analyze {udb_path}".format(udb_path=udb_path), shell=True)
+        #logging.info(output)
+    except subprocess.CalledProcessError as e:
+        logging.exception(e.output)
+        logging.fatal("udb creation failed")
+        raise Exception
 """
 This function creates dependencies
 """
-def execute(db,name,path,udb_path,type):
-    language='java'
+def execute(name,path,udb_path,type):
     #print('path is '+path)
     #und export -dependencies file csv output.csv myProject.udb
 
@@ -70,8 +69,8 @@ def execute(db,name,path,udb_path,type):
     config = imgkit.config(wkhtmltoimage='D:\\Software\\wkhtmltopdf\\bin\\wkhtmltoimage.exe')
 
     if type.upper()=='FILE':
-        output = subprocess.check_output("und export -dependencies -format short file matrix {path}/file.csv {udb_path}".format(path=path,udb_path=udb_path),shell=True)
-        logging.info(output)
+        output = subprocess.check_output("und export -dependencies -format short file matrix {path}\\file.csv {udb_path}".format(path=path,udb_path=udb_path),shell=True)
+        #logging.info(output)
 
         df = pd.read_csv(path+'/file.csv')
         #print(list(df.columns))
@@ -96,7 +95,7 @@ def execute(db,name,path,udb_path,type):
 
     if type.upper()=='CLASS':
         output = subprocess.check_output("und export -dependencies -format short class matrix {path}/class.csv {udb_path}".format(path=path,udb_path=udb_path),shell=True)
-        logging.info(output)
+        #logging.info(output)
 
         df1 = pd.read_csv(path+'/class.csv')
         #print(df1.head())
@@ -107,79 +106,13 @@ def execute(db,name,path,udb_path,type):
         #print(df1.head())
         #data1 = pd.read_csv(open(path+'/class.csv', 'r'),index_col=0)
 
-
-
-        # text_file1 = open(path+'/class.html', "a")
-        # # write the CSS
-        # text_file1.write(css)
-        # # write the HTML-ized Pandas DataFrame
-        # text_file1.write(data1.to_html())
-        # text_file1.write(script)
-        # text_file1.close()
-        #
-        # imgkitoptions = {"format": "png"}
-        # imgkit.from_file(path+'/class.html',path+'/class.png', options=imgkitoptions,config=config)
-
-
-
-    # type='.java'
-    # size = len(type)
-    # #print('here')
-    # #fileset = get_filenames(db,type)
-    # #print(fileset)
-    # relationship = dict()
-    # longnames = []
-    # try:
-    #     for entity in db.ents():
-    #         if entity.longname()[(-1*size):]==type:
-    #             relationship[entity.name()] = entity.depends()
-    #             #longnames.append(entity.longname())
-    #             #print(entity.filerefs())
-    #     #print(relationship)
-    #     #print(len(relationship))
-    #     headers = list(relationship.keys())
-    #     #values = list(relationship.values())
-    #     #print(longnames)
-    #     print(headers)
-    #     #print(values)
-    #     #for d in relationship:
-    #         #print(relationship.values())
-    #     #print(len(values))
-    #
-    #     # list[ key : list[] ]
-    #
-    #     #dsm_matrix = [[0 for i in range(len(values))] for j in range(len(values))]
-    #
-    #     #for i in range(len(values)):
-    #     #    for
-    #
-    #     y = dict()
-    #     for key, v  in relationship.items():
-    #         new_list = []
-    #         new_list.append(v)
-    #         #print(key)
-    #         #print(new_list)
-    #         #for i in range(len(new_list)):
-    #             #for k in new_list[i]:
-    #                 #print('key is ' + key)
-    #                 #print('relation is ')
-    #                 #print(k)
-    #                 #print('value is ')
-    #                 #print(len(new_list[i][k]))
-    #                 #y[k] = len(new_list[i][k])
-    #                 #print(y)
-    #                 #dsm = dict()
-    #                 #dsm[key+k] = len(new_list[i][k])
-    #             #y = dict()
-    #
-    #
-    #     #am = pd.DataFrame(np.zeros(shape=(5,5)), columns=list(headers), index=list(headers))
-    #     #print(am)
-    #     #print(path)
-    #     #am.to_csv(path+'\\file.csv')
-    #
-    #
-    #
-    #
-    # except understand.UnderstandError as e:
-    #     print(e)
+"""
+This function generates reports
+"""
+def generate_reports(name,path,udb_path):
+    file_path = name + '_html/'
+    project_metric_file = file_path + 'projmetrics.html'
+    #print(project_metric_file)
+    output = subprocess.check_output("und report {path}".format(path=udb_path),shell=True)
+    #logging.info(output)
+    #print("report exported")

@@ -1,19 +1,74 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Github Project Details</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{% static "modularity/css/bootstrap.min.css"%}"   type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static "modularity/css/style.css"%}">
+    <link href="{% static "modularity/css/bootstrap-datetimepicker.min.css"%}" rel="stylesheet" media="screen">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="{% static "modularity/font-awesome-4.4.0/css/font-awesome.min.css"%}"  type="text/css">
+    <link rel="stylesheet" href="{% static "modularity/css/normalize.css"%}">
+    <link rel="stylesheet" href="{% static "modularity/css/ideal-image-slider.css"%}">
+    <link rel="stylesheet" href="{% static "modularity/css/default.css"%}">
+    <style media="screen">
+    #slider {
+      margin: 50px auto;
+    }
+    </style>
 </head>
 <body>
-<h2>Response Entered by you:</h2>
-<form method="post">
+  <header>
+    <nav id="top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8">
+            <h1>Dispaly DSM</h1>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div id="slider">
+    {% for image in image_list %}
+    <img src="{% static image %}" alt="Slide 1" />
+    {% endfor %}
+    <!--<img src="{% static "modularity/images/file_0.png"%}"  alt="Slide 1" />
+    <img src="{% static "modularity/images/file_1.png"%}"  alt="Slide 2" />
+    <img src="{% static "modularity/images/file_2.png"%}"  alt="Slide 3" /> -->
+  </div>
+  <div class="featured container">
+      <div class="row">
+        <div class="col-sm-8">
+<h2>Project Details:</h2>
 
-            <ul>
-            <li>Project URL: <strong>{{ project_url }}</strong></li>
 
-            <li>Language: <strong>{{ language_type }}</strong></li>
+          <ul>
+          <li>Project Name: <strong>{{ project_url }}</strong></li>
 
-          </ul>
-</form>
+          <li>Language: <strong>{{ dependencies_type }}</strong></li>
+
+        </ul>
+
+</div>
+</div>
+</div>
+<footer>
+  <div class="copy-right">
+    <p>Nikesh Hegde</p>
+  </div>
+</footer>
+<script src="{% static "modularity/js/ideal-image-slider.js"%}"></script>
+<script>
+var slider = new IdealImageSlider.Slider('#slider');
+slider.start();
+</script>
 </body>
 </html>
